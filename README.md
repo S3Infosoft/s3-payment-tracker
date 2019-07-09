@@ -1,2 +1,2 @@
 # s3-payment-tracker
-Payment Tracker
+Go to app.payment_tracker_app.models to view database
