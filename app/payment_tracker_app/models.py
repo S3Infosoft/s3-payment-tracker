@@ -14,12 +14,20 @@ class Guest(models.Model):
 	def __str__(self):
 		return f'{self.email }'
 
+class RoomType(models.Model):
+
+        name=models.CharField(max_length=50)
+        description=models.CharField(max_length=300)
+
+        def __str__(self):
+                return f'{self.name }'
+
 class Room(models.Model):
 
 	room_name=models.CharField(max_length=50)
 	description=models.CharField(max_length=300)
-	room_type=models.CharField(max_length=50)
-
+	#room_type=models.CharField(max_length=50)
+	room_type = models.ForeignKey(RoomType,on_delete=models.PROTECT,null=True)
 	def __str__(self):
 		return f'{self.room_name }'	
 
@@ -29,7 +37,7 @@ class MealPlan(models.Model):
 	description=models.CharField(max_length=300)
 
 	def __str__(self):
-		return f'{self.room_name }'	
+		return f'{self.meal_name }'	
 
 class RoomAllocation(models.Model):
 
@@ -48,7 +56,7 @@ class Reservations(models.Model):
 	guest=models.ForeignKey(Guest,on_delete=models.PROTECT)
 	check_in=models.DateTimeField()
 	check_out=models.DateTimeField()
-	room_allocation_data=models.ForeignKey( RoomAllocation,on_delete=models.PROTECT,null=True)
+	room_allocation_data=models.ManyToManyField(RoomAllocation)
 	reference_number=models.CharField(max_length=1000, blank=True,unique=True,default=uuid.uuid4)
 	booking_source=models.CharField(max_length=50)
 
@@ -61,7 +69,7 @@ class PaymentMode(models.Model):
 	description=models.CharField(max_length=300)
 
 	def __str__(self):
-		return f'{self.name }'	
+		return f'{self.mode_name }'	
 
 
 class PaymentType(models.Model):
@@ -75,6 +83,7 @@ class PaymentType(models.Model):
 class Payment(models.Model):
 
 	payment_mode=models.ForeignKey(PaymentMode,on_delete=models.PROTECT,null=True)
+	payment_type=models.ForeignKey(PaymentType,on_delete=models.PROTECT,null=True)
 	reservation=models.ForeignKey(Reservations,on_delete=models.PROTECT,null=True)
 	Amount=models.IntegerField()
 	reference_number=models.CharField(max_length=300)
