@@ -25,7 +25,7 @@ SECRET_KEY = '6dr=n^0t%$7h#7j+++(58c6a=hx3bgv=y+f@8dfgk4v(ws-#np'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['10.1.33.6']
+ALLOWED_HOSTS = ['192.168.99.100','0.0.0.0','127.0.0.1','localhost','10.1.33.6']
 
 
 # Application definition
@@ -55,7 +55,7 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, "templates")],#here i have seperate folder for my templates
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -118,4 +118,16 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
+
 STATIC_URL = '/static/'
+STATICFILES_DIRS = os.path.join(BASE_DIR, "static"),
+STATIC_ROOT = os.path.join(BASE_DIR, "static_root")
+
+MEDIA_ROOT=os.path.join(BASE_DIR,'media')
+MEDIA_URL='/media/'
+
+LOGIN_URL = "myadmin"
+
+
+LOGIN_REDIRECT_URL = "index"
+LOGOUT_REDIRECT_URL = "myadmin"

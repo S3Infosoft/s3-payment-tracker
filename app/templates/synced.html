@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+{% load static %}
+{% block extra_css %}
+
+  <link href="{% static 'css/earn_spend_history.css' %}" rel="stylesheet" type="text/css">
+  <!--for google font userd for reward_item_name-->
+  {% endblock extra_css %}
+
+{% block content %}
+
+<div class="btn-group btn-group-lg">
+  <a href="{% url 'index' %}" class="btn btn-outline-info">To Be Sync &nbsp;
+
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+  <a href="{% url 'already_synced' %}" class="btn btn-outline-info active">Already synced&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+</div>
+
+
+<div class="row">
+
+
+
+
+{% for reservation in reservations %}
+
+    {% if reservation < 1 %}<!--when reservation ==0 ...there was nootherway of printing this-->
+                <h2> No any Synced Record </h2>
+      {% else%}
+      
+
+        <div class="col-sm-6" >
+          <br>
+              <article class="media content-section border border-success">
+                <img class="rounded" src="{{reservation.hotel.image.url}}" width="100" height="100">
+                &nbsp; &nbsp; &nbsp; 
+                
+                <div class="media-body">
+                  
+                  <div class="article-metadata">
+                    <font size="4"><spam class="text-info" >Guest ->{{reservation.guest.first_name}} {{reservation.guest.last_name}}</spam></font>
+                    
+                    
+                  </div>
+
+                  
+                  <div class="article-metadata">
+                     Phone -> {{reservation.guest.phone}}
+                  </div>
+                   
+                  <div class="article-metadata">
+                     Email -> {{reservation.guest.email}}
+                  </div>
+
+                  <div class="article-metadata">
+                     Hotel -> {{reservation.hotel.name}}
+                  </div>
+
+                  <div class="article-metadata">
+                     Check In Date -> {{reservation.check_in}}
+                  </div>
+
+                  <div class="article-metadata">
+                     Check Out Date -> {{reservation.check_out}}
+                  </div>      
+
+
+                  <div class="article-metadata">
+                    V_T_Hotel -> {{reservation.v_t_hotel}}
+                  </div>
+                             
+
+                  <div class="article-metadata">
+                     Points Obtain -> {{reservation.points_obtain}}
+                  </div>
+
+                 
+
+                  <div class="article-metadata">
+                       Sync Status ->
+                       <span class="badge badge-success">Success</span>
+                  </div>                         
+
+                
+                   <div class="article-metadata">
+                    V_T_Hotel -> {{reservation.v_t_hotel}}
+                  </div>
+                
+
+                  
+
+
+                  
+                </div>
+              
+              </article>
+          </div>
+       {% endif %}
+
+{% endfor %}
+
+</div>
+
+
+
+    
+
+
+{% endblock content %}
