@@ -46,13 +46,21 @@ At this point, your price-tracker app should be running at port 9000 on your Doc
 - ---------------------------------------------------------------------------------------
 
 #### website will be available now at above url
-- login with email id = "test1234@gmail.com" and password= "test@1234"
+- login with username = "test1234" and password= "test@1234"
 - Django administration page will be appear,click on "view site " 
-## NOTE: 
+- ----------------------------------------------------------------------------
+## Functionality -----> 
+
+ - on clicking view site you will redirect to actual page
+ - there will be 2 sections 1.resrvation which are not sync to loyalty web app 2. which are already synced
+ - every detail of particular reservation will be shown with "sync" button
+ 
+ #### NOTE: 
 - don't delete db.sqlite3 
 - first go your loyalty web app repo-->app-->payment_tracker_app-->views.py---->callapi() method
 - now change BASE_URL attribute inside callapi() to your loyalty web URL e.g "http://192.168.99.100:9000/" 
-- remove this 2 lines        #locally
+- remove this 2 lines        
+-                            #locally
 -                            BASE_URL='http://127.0.0.1:8000/'
 - save file
 - make sure you have that .env file where settings.py resides in loyalty app,make sure that you have "recipient"= "your email id" to get emails
@@ -63,8 +71,7 @@ At this point, your price-tracker app should be running at port 9000 on your Doc
 - click on sync botton to sync reservation into loyalty app
 - resrvation will be shown into "already sync" section after successful sync
 - check your Users,Profile,Gust,Reservation database again ,new entries would have been created
-- check your email ,email will have email id and password for login
-
+- check your email ,email will have email id and password for login that is created automatically
 
 
 - --------------------------------------------------------------------------
