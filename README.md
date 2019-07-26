@@ -41,7 +41,7 @@
     ```
 - -------------------------------------------------------------------------------
 
-At this point, your price-tracker app should be running at port 9000 on your Docker host. On Docker Desktop for Mac and Docker Desktop for Windows, go to http://localhost:4000 on a web browser to see the website. If you are using Docker Machine, then docker-machine ip MACHINE_VM returns the Docker host IP address, to which you can append the port (<Docker-Host-IP>:4000).
+At this point, your price-tracker app should be running at port 4000 on your Docker host. On Docker Desktop for Mac and Docker Desktop for Windows, go to http://localhost:4000 on a web browser to see the website. If you are using Docker Machine, then docker-machine ip MACHINE_VM returns the Docker host IP address, to which you can append the port (<Docker-Host-IP>:4000).
   
 - ---------------------------------------------------------------------------------------
 
@@ -58,7 +58,7 @@ At this point, your price-tracker app should be running at port 9000 on your Doc
  #### NOTE: 
 - don't delete db.sqlite3 
 - first go your loyalty web app repo-->app-->payment_tracker_app-->views.py---->callapi() method
-- now change BASE_URL attribute inside callapi() to your loyalty web URL e.g "http://192.168.99.100:9000/" 
+- now change BASE_URL attribute inside callapi() to your loyalty web URL e.g "http://localhost:9000/" 
 - remove this 2 lines        
 -                            #locally
 -                            BASE_URL='http://127.0.0.1:8000/'
