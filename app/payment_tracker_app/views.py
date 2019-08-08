@@ -66,6 +66,8 @@ def callapi(request):
   
 
   data={
+    'first_name':r_obj.guest.first_name,
+    'last_name':r_obj.guest.last_name,
     'name':r_obj.guest.first_name + ' ' + r_obj.guest.last_name,
     'phone':r_obj.guest.phone,
     'email':r_obj.guest.email,
@@ -73,7 +75,6 @@ def callapi(request):
     'unique_id':r_obj.guest.unique_id,
     }
   guest_request=requests.post(BASE_URL + 'api/' + GUEST_END_POINT , data=json.dumps(data) )
-  print(guest_request.json())
   loyalty_guest_unique_id = guest_request.json()['unique_id']
   print(guest_request.status_code)
   print(guest_request.json())
