@@ -1,4 +1,5 @@
 # s3-payment-tracker
+![](https://img.shields.io/github/repo-size/S3Infosoft/s3-payment-tracker.svg?label=Repo%20size&style=flat-square)&nbsp;
 
 ## Features
 - Sync all Reservations to loyalty web app throght REST API
