@@ -1,8 +1,12 @@
+import requests
+import json
 from django.shortcuts import render,redirect
+from django.core import serializers
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView
-from .models import Reservations
+from .models import *
 import uuid
+from django.http import HttpResponse
 from django.contrib import messages
 
 
@@ -16,12 +20,12 @@ def redirect_to_admin(request):
 
 class ReservationsListView(LoginRequiredMixin,ListView):
 
-    
+
     model = Reservations
-    template_name = 'sync.html'  
+    template_name = 'sync.html'
 
     context_object_name = 'reservations'
-    
+
 
     def get_queryset(self):
       r_objs=Reservations.objects.filter(sync=False)#.order_by('-date')
@@ -29,17 +33,17 @@ class ReservationsListView(LoginRequiredMixin,ListView):
         return r_objs[::-1]
       else:
         return [0]
-      
+
 
 
 class AlreadySyncedListView(LoginRequiredMixin,ListView):
 
 
     model = Reservations
-    template_name = 'synced.html'  
+    template_name = 'synced.html'
 
     context_object_name = 'reservations'
-    
+
 
     def get_queryset(self):
       r_objs=Reservations.objects.filter(sync=True)#.order_by('-date')
@@ -47,11 +51,9 @@ class AlreadySyncedListView(LoginRequiredMixin,ListView):
         return r_objs[::-1]
       else:
         return [0]
-      
+
 
 def callapi(request):
-  import requests
-  import json
   print(request.POST)
   # for docker
   #BASE_URL='http://192.168.99.100:9000/'
@@ -63,7 +65,7 @@ def callapi(request):
   RESERVATION_END_POINT='reservation/'
 
   r_obj=Reservations.objects.get(unique_id=request.POST["reservation_unique_id"])
-  
+
 
   data={
     'first_name':r_obj.guest.first_name,
@@ -105,13 +107,13 @@ def callapi(request):
     return redirect('index')
   #while creating reservation in loyalty ,i do not check whether that resrevation is alreday in loyalty app
   #or not by compairing unique_id
-  
+
   data={
-  
+
    'v_t_hotel':r_obj.v_t_hotel,
    'date':r_obj.date,
    'points_obtain':r_obj.points_obtain,
-   
+
    'guest_unique_id':loyalty_guest_unique_id,
    'hotel_unique_id':loyalty_hotel_unique_id,
 
@@ -133,3 +135,9 @@ def callapi(request):
     messages.success(request,f'{r_obj.guest.first_name} {r_obj.guest.last_name} has been synced')
 
   return redirect("/reservations/")
+
+
+def PaymentApi(request):
+	reservations = Reservations.objects.all()
+	reservations_json = serializers.serialize('json', reservations)
+	return HttpResponse(reservations_json, content_type='application/json')
