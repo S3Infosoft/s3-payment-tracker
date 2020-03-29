@@ -137,7 +137,15 @@ def callapi(request):
   return redirect("/reservations/")
 
 
-def PaymentApi(request):
-	reservations = Reservations.objects.all()
+def PaymentApi(request,startDate,endDate):
+	# startDate and endDate fromat year-month-day
+
+	start_year,start_month,start_day = map(int,startDate.split('-'))
+	end_year,end_month,end_day = map(int,endDate.split('-'))
+
+	first_date = datetime.date(start_year,start_month,start_day)
+	last_date = datetime.date(end_year,end_month,end_day)
+
+	reservations = Reservations.objects.filter(date__range=(first_date, last_date))
 	reservations_json = serializers.serialize('json', reservations)
 	return HttpResponse(reservations_json, content_type='application/json')
